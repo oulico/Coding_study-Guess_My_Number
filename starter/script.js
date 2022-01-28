@@ -18,7 +18,7 @@ const displayMessage = function (message) {
   document.querySelector(`.message`).textContent = message;
 };
 
-document.querySelector(`.again`).addEventListener(`click`, function () {
+const again = function () {
   score = 20;
   secretNumber = Math.trunc(Math.random() * 20) + 1;
   document.querySelector(`.message`).textContent = `Start guessing...`;
@@ -27,9 +27,9 @@ document.querySelector(`.again`).addEventListener(`click`, function () {
   document.querySelector(`.guess`).value = '';
   document.querySelector(`body`).style.backgroundColor = `#222`;
   document.querySelector(`.number`).style.width = `15rem`;
-});
+};
 
-document.querySelector(`.check`).addEventListener(`click`, function () {
+const guess = function () {
   const guess = Number(document.querySelector(`.guess`).value);
 
   // when there's no input
@@ -57,5 +57,21 @@ document.querySelector(`.check`).addEventListener(`click`, function () {
       document.querySelector(`.score`).textContent = 0;
       displayMessage(`😔 Oh You lost`);
     }
+  }
+};
+
+document.querySelector(`.again`).addEventListener(`click`, again);
+
+document.querySelector(`.check`).addEventListener(`click`, guess);
+
+document.addEventListener(`keydown`, function (e) {
+  if (e.key === `Enter`) {
+    guess();
+  }
+});
+
+document.addEventListener(`keydown`, function (f) {
+  if (f.key === `Escape`) {
+    again();
   }
 });
