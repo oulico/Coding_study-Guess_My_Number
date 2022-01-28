@@ -14,6 +14,10 @@ let secretNumber = Math.trunc(Math.random() * 20) + 1;
 let score = 20;
 let highScore = 0;
 
+const displayMessage = function (message) {
+  document.querySelector(`.message`).textContent = message;
+};
+
 document.querySelector(`.again`).addEventListener(`click`, function () {
   score = 20;
   secretNumber = Math.trunc(Math.random() * 20) + 1;
@@ -30,11 +34,11 @@ document.querySelector(`.check`).addEventListener(`click`, function () {
 
   // when there's no input
   if (!guess) {
-    document.querySelector(`.message`).textContent = `🚫 No Number!`;
-
+    // document.querySelector(`.message`).textContent = `🚫 No Number!`;
+    displayMessage('🚫 No Number!');
     // when player wins
   } else if (guess === secretNumber) {
-    document.querySelector(`.message`).textContent = `🎉 Correct Number!`;
+    displayMessage(`🎉 Correct Number!`);
     document.querySelector(`.number`).textContent = secretNumber;
     document.querySelector(`body`).style.backgroundColor = `#60b347`;
     document.querySelector(`.number`).style.width = `30rem`;
@@ -46,11 +50,12 @@ document.querySelector(`.check`).addEventListener(`click`, function () {
     if (score > 1) {
       score--; // decrease by 1
       document.querySelector(`.score`).textContent = score;
-      document.querySelector(`.message`).textContent =
-        guess > secretNumber ? `⬇️ Lower than that` : `⬆️ Higher than that`;
+      displayMessage(
+        guess > secretNumber ? `⬇️ Lower than that` : `⬆️ Higher than that`
+      );
     } else {
       document.querySelector(`.score`).textContent = 0;
-      document.querySelector(`.message`).textContent = `😔 Oh You lost`;
+      displayMessage(`😔 Oh You lost`);
     }
   }
 });
